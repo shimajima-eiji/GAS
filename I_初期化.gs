@@ -9,4 +9,5 @@ var MESSAGES;
 var initialize = function() {
   PROPERTIES = PropertiesService.getScriptProperties().getProperties();
   MESSAGES = new Message();
+  MODULES = new Module();
 }

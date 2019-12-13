@@ -41,6 +41,15 @@ var Message = function() {
         }
       });
   }
+  function i_gform(dear, header, footer) {
+    return _merge({
+      "gform": {
+        "dear": dear,
+        "header": header + "\n------------------------------------------------------------\n\n",
+        "footer": "------------------------------------------------------------\n\n" + footer,
+      }
+    });
+  }
 
   /**
    * 定義部
@@ -51,6 +60,9 @@ var Message = function() {
 
   var ja = function() {
     i_debug("デバッグ中");
+    i_gform(" 様",
+            "「のむらやごろう」へのスケジュール調整依頼を受け付けました\n内容は次の通りです。",
+            "本メールは送信専用です。返信はできません。");
     return _finish();
   },
   en = function() {
