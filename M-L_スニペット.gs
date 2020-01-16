@@ -43,8 +43,49 @@ var Module = function() {
     //*/
   }
   
+  var spreadSheet = function(id) {
+    var obj = (id === undefined)
+    ? SpreadsheetApp.getActive().getSheets()
+    : SpreadsheetApp.openById(id).getSheets();
+    // return this.obj[0].getDataRange().getValues();
+
+    return {
+      "book": obj,
+      "setSheet": function(sheet) {
+        
+        var array = obj[0].getDataRange().getValues();
+        var table = {
+          columns: array[0]
+        };
+        array.filter(function(rows, index) {
+          return index === 0;
+        });
+        return {
+          "array": array,
+          "table": table,
+        };
+      },
+    };
+  }
+  /*
+  var data = {};
+  for (var i = 0, l = values.length; i < l; i++) {
+    var key = values[i].shift();
+    if (key.length > 0) {
+      data[key] = values[i];
+    }
+  }
+  */
+  
   return {
     "Dict": Dict,
     "getDate": getDate,
+    "ss": spreadSheet,
   };
+}
+
+function test() {
+  initialize();
+  var ss = MODULES.ss(PROPERTIES.GFORM_ID);
+  Logger.log(ss.setSheet(0).table);
 }

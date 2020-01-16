@@ -12,7 +12,8 @@ var doorway = function() {
 }
 
 //TODO: JSONフォーマット。メソッドを持たない
-
+//TODO: 呼び出し順が考慮されていない
+/*
 var json_format = function(obj) {
   Logger.log(Dict);
   this.name = (Dict.haskey(obj,"name") ? obj.name : Undefined)
@@ -21,7 +22,4 @@ var json_format = function(obj) {
   ;
   return this;
 };
-
-function test() {
-  Deb.method(json_format, "OK");
-}
+*/

@@ -80,3 +80,7 @@ var Message = function() {
   }
   return Message()();  // 関数を返すので実行させて返す
 }
+
+function test() {
+  Logger.log("でばっぐ");
+}

@@ -5,55 +5,55 @@ function auto_reply ()
 
   var option = {
     name: PROPERTIES.MAIL_NAME
-  }
-    , sheet = SpreadsheetApp.getActiveSheet();
-  var row = sheet.getLastRow(),
-    column = sheet.getLastColumn(),
-    range = sheet.getDataRange(),
-    // for内
-    to = "",
-    columns = "",
-    value = "",
-    dear = "",
-    body = "";
+  },
+  sheet = SpreadsheetApp.getActiveSheet(),
+  // for内
+  to = "",
+  body = "",
+  dear = "",
+  forTmp = {
+    "columns": "",
+    "value": "",
+  };
+  forTmp.row = sheet.getLastRow(),
+    forTmp.column = sheet.getLastColumn(),
+    forTmp.range = sheet.getDataRange();
 
-  for ( var i = 1; i <= column; i++ )
+  for ( var i = 1; i <= forTmp.column; i++ )
   {
-    columns = range.getCell( 1, i ).getValue();
-    value = range.getCell( row, i ).getValue();
-    body += "■" + columns + "\n";
+    forTmp.columns = forTmp.range.getCell( 1, i ).getValue();
+    forTmp.value = forTmp.range.getCell( forTmp.row, i ).getValue();
+    body += "■" + forTmp.columns + "\n";
 
-    // フォームの入力項目により分岐
-    // 「お名前」
-    switch ( columns )
+    switch ( forTmp.columns )
     {
       case PROPERTIES.GFORM_TIMESTAMP:
-        value = MODULES.getDate( value ).YmdHMS;
+        forTmp.value = MODULES.getDate( forTmp.value ).YmdHMS;
         break;
 
       case PROPERTIES.GFORM_DATE:
-        value = MODULES.getDate( value ).Ymd;
+        forTmp.value = MODULES.getDate( forTmp.value ).Ymd;
         break;
 
       case PROPERTIES.GFORM_START:
       case PROPERTIES.GFORM_END:
-        value = MODULES.getDate( value ).HMS;
+        forTmp.value = MODULES.getDate( forTmp.value ).HMS;
         break;
 
       case PROPERTIES.GFORM_NAME:
         dear = ( PROPERTIES.i18n == "ja" )
-          ? value + MESSAGES.gform.dear
-          : MESSAGES.gform.dear + value;
+          ? forTmp.value + MESSAGES.gform.dear
+          : MESSAGES.gform.dear + forTmp.value;
         break;
 
       case PROPERTIES.GFORM_MAIL:
-        to = value;
-        ( value )
+        to = forTmp.value;
+        ( forTmp.value )
           ? option.bcc = PROPERTIES.SLACK_MAIL
           : to = PROPERTIES.SLACK_MAIL;
         break;
     }
-    body += value + "\n\n";
+    body += forTmp.value + "\n\n";
   }
   GmailApp.sendEmail( to, PROPERTIES.MAIL_TITLE, dear + MESSAGES.gform.header + body + MESSAGES.gform.footer, option );
 }
