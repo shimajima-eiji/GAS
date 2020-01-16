@@ -1,48 +1,84 @@
-function sendEmailsToSlack() {
-  const PROPERTIES = PropertiesService.getScriptProperties().getProperties();
+var PROPERTIES = PropertiesService.getScriptProperties().getProperties();
 
-    // target_label
-    var label = GmailApp.getUserLabelByName(PROPERTIES.label);
-    var messages = [];
-    var threads = label.getThreads();
+function sendEmailsToSlack ()
+{
+  const threads = GmailApp.getUserLabelByName( PROPERTIES.label ).getThreads();
 
-    for (var i = 0; i < threads.length; i++) {
-      messages = messages.concat(threads[i].getMessages())
-    }
+  const gsObjects = spreadSheet();
+  const sheetArray = gsObjects.getSheet();
 
-    var message = messages[messages.length - 1];
-    Logger.log(message);
+  var pointer = 0;
+  for ( var i = threads.length - sheetArray.table.body.length - 1; i > -1; i-- )
+  {
+    thread = threads[ i ].getMessages();
+    thread.forEach( function ( messageObject )
+    {
+      sendMail( messageObject, threads[ i ].getPermalink() );
+    } );
+  }
+}
 
-    var output = '\n' + message.getPlainBody();
-    Logger.log(output);
+var sendMail = function ( messageObject, parmalink )
+{
+  Logger.log( messageObject.getDate() );
+  Logger.log( messageObject.getSubject() );
+  Logger.log( messageObject.getPlainBody() );
+  Logger.log( parmalink );
 
-    // payload is customizable if u need
-    var today = new Date();
-    var payload = {
-        "username": "hogehoge",
-        "attachments": [
+  const payload = {
+    "username": messageObject.getDate(),
+    "attachments": [
+      {
+        "color": "#36a64f",
+        "title": messageObject.getSubject(),
+        "fields": [
           {
-            "color": "#36a64f",
-            "author_link": "https://author_link",
-            "title": "Something like title",
-            "title_link": "Something like title_link",
-            "fields": [
-              {
-                "value": output,
-                "short": false
-              }
-            ],
+            "value": '\n' + messageObject.getPlainBody(),
+            "short": false
           }
         ],
-        "channel" : PROPERTIES.slack_send,
-        "icon_emoji": ":cart:"
-    };
+      }
+    ],
+    "channel": PROPERTIES.slack_send,
+  };
 
-    var options = {
-        'method' : 'post',
-        'payload' : Utilities.jsonStringify(payload),
-    };
+  const options = {
+    'method': 'post',
+    'payload': Utilities.jsonStringify( payload ),
+  };
+  UrlFetchApp.fetch( PROPERTIES.slack_webhook, options );
 
-    var webhookUrl = PROPERTIES.slack_webhook;
-    UrlFetchApp.fetch(webhookUrl, options);
+};
+
+var spreadSheet = function ( id )
+{
+  var obj = ( id === undefined )
+    ? SpreadsheetApp.getActive().getSheets()
+    : SpreadsheetApp.openById( id ).getSheets();
+  // return this.obj[0].getDataRange().getValues();
+
+  return {
+    "book": obj,
+    "getSheet": function ( sheet, target )
+    {
+      target = ( target === undefined ) ? 0 : target;
+      const header = 0;
+      const array = obj[ target ].getDataRange().getValues();  // 二次配列で渡す
+      const table = {  // pythonでいうdictで渡したい
+        header: array[ header ],
+        body: []
+      };
+      var row = 0;
+      array.filter( function ( rows, index )
+      {
+        if ( row > 0 ) table.body[ row - 1 ] = rows;
+        row++;
+        return index === 0;
+      } );
+      return {
+        "array": array,
+        "table": table,
+      };
+    },
+  };
 }
