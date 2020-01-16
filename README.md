@@ -20,11 +20,17 @@ Webエディターだけで使う前提で運用するのでプロジェクト�
 [運用方針](https://github.com/shimajima-eiji/GAS/pull/2#issue-363450817)に従い管理。<br>
 プロジェクトキーは「ファイル」→「プロジェクトのプロパティ」：プロジェクトキーにある。
 
-[GASプロジェクト](https://script.google.com/d/1kU5cAgcFYhG4CnycO5XZ9f_gXgujFNYN5X4sJasfsDFtOWFVkoXTt88I/edit?splash=yes)
+- [GASプロジェクト](https://script.google.com/d/1kU5cAgcFYhG4CnycO5XZ9f_gXgujFNYN5X4sJasfsDFtOWFVkoXTt88I/edit)
 
 ## GmailからSlackへ転送
 元々はconnpassの入館証だけを管理したいというもの。<br>
 色々なことに使えるので同様の目的をすべて集約。
 
+- [GASプロジェクト](https://script.google.com/d/1z0v3Qq8gSaFH6m_m5BVOpV_pcwr1UeDRnlZufB5POZ698HbjbIOSZkgQ/edit)
+- [スプレッドシート](https://docs.google.com/spreadsheets/d/19DVVGjOCQ1RmODVj_AZVdxOysZIfzPm5fwuS12S1-hE/edit)
+
 ## スケジュール申請フォーム
 [スケジュール調整依頼フォーム](https://shimajima-eiji.github.io/resume/archive/recruit)をいい感じに運用するためのスクリプト群。
+
+- [GASプロジェクト](https://script.google.com/d/1I3P9iK1Upnl2aw2-ja1ZCZab7vo9bQqQ80j2JzOgVew10l4he5SASxGT/edit)
+- [スプレッドシート](https://docs.google.com/spreadsheets/d/1CFDH_NVODe7xOcQFyjlPQZneITnZzk3k7ArSv6aPKGE/edit)
