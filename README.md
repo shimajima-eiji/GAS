@@ -14,7 +14,9 @@ Webエディタしか使わない前提で運用するのでプロジェクト�
 
 ## [master](https://github.com/shimajima-eiji/GAS_snippet/)
 [運用方針](https://github.com/shimajima-eiji/GAS/pull/2#issue-363450817)に従い管理。<br>
-[プロジェクトキー](https://script.google.com/d/1kU5cAgcFYhG4CnycO5XZ9f_gXgujFNYN5X4sJasfsDFtOWFVkoXTt88I/edit?splash=yes)は「ファイル」→「プロジェクトのプロパティ」：プロジェクトキーにある
+プロジェクトキーは「ファイル」→「プロジェクトのプロパティ」：プロジェクトキーにある。
+
+[GASプロジェクト](https://script.google.com/d/1kU5cAgcFYhG4CnycO5XZ9f_gXgujFNYN5X4sJasfsDFtOWFVkoXTt88I/edit?splash=yes)
 
 ## [GmailからSlackへ転送](https://github.com/shimajima-eiji/GAS/tree/Gmail%E3%81%8B%E3%82%89Slack%E3%81%B8%E8%BB%A2%E9%80%81)
 元々はconnpassの入館証だけを管理したいというもの。<br>
