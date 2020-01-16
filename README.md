@@ -10,6 +10,7 @@ Webエディタしか使わない前提で運用するのでプロジェクト�
 
 # ブランチ解説
 現在稼働中のブランチ（プロジェクト）は以下の通り。
+**masterブランチはWIPで使っている**ので、GASプロジェクトは各ブランチで管理する。
 
 ## [master](https://github.com/shimajima-eiji/GAS_snippet/)
 [運用方針](https://github.com/shimajima-eiji/GAS/pull/2#issue-363450817)に従い管理。<br>
