@@ -10,20 +10,21 @@ Webエディターだけで使う前提で運用するのでプロジェクト�
 
 # ブランチ解説
 現在稼働中のブランチ（プロジェクト）は以下の通り。<br>
+他ブランチのREADMEは更新されないようなので、気付いた時に手修正をするか。
 
-## [master](https://github.com/shimajima-eiji/GAS)
+## master
 なお、**masterブランチはWIPで使っている**ので、GASプロジェクトは各ブランチで管理する。<br>
 従って、原則的にmasterブランチにはREADME.md以外に存在しないことを想定している。
 
-## [スニペット](https://github.com/shimajima-eiji/GAS/tree/%E3%82%B9%E3%83%8B%E3%83%9A%E3%83%83%E3%83%88)
+## スニペット
 [運用方針](https://github.com/shimajima-eiji/GAS/pull/2#issue-363450817)に従い管理。<br>
 プロジェクトキーは「ファイル」→「プロジェクトのプロパティ」：プロジェクトキーにある。
 
 [GASプロジェクト](https://script.google.com/d/1kU5cAgcFYhG4CnycO5XZ9f_gXgujFNYN5X4sJasfsDFtOWFVkoXTt88I/edit?splash=yes)
 
-## [GmailからSlackへ転送](https://github.com/shimajima-eiji/GAS/tree/Gmail%E3%81%8B%E3%82%89Slack%E3%81%B8%E8%BB%A2%E9%80%81)
+## GmailからSlackへ転送
 元々はconnpassの入館証だけを管理したいというもの。<br>
 色々なことに使えるので同様の目的をすべて集約。
 
-## [スケジュール申請フォーム](https://github.com/shimajima-eiji/GAS/tree/%E3%82%B9%E3%82%B1%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E7%94%B3%E8%AB%8B%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0)
+## スケジュール申請フォーム
 [スケジュール調整依頼フォーム](https://shimajima-eiji.github.io/resume/archive/recruit)をいい感じに運用するためのスクリプト群。
