@@ -8,6 +8,8 @@
 ## バージョン管理
 - バージョンを上げたらGitにpushする。
 - コミットメッセージは必ずバージョンを添える
+- Web側のバージョンを上げる前にpushする運用を徹底する。diffが見れる。
+  - project versionはNewに当たる数値(version.length)を入れる。
 
 # 運用ルール
 - 他のプロジェクトから呼ばれるものを想定しているので、var funcname = function()... のような書き方をしない

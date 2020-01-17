@@ -5,9 +5,11 @@
  */
 var Slack = function() {
   return {
-    send: function(dateStr, titleStr, valueStr, channel, webhook) {
+    send: function(dateStr, titleStr, valueStr, webhook) {
+      if(!dateStr || !titleStr || !valueStr || !channel || !webhook) return error('notfound', 'Slack.send');
+
       const payload = {
-        "username": messageObject.getDate(),
+        "username": dateStr,
         "attachments": [
           {
             "color": "#36a64f",
@@ -19,8 +21,7 @@ var Slack = function() {
               }
             ],
           }
-        ],
-        "channel": channel,
+        ]
       };
       
       const options = {
@@ -30,4 +31,8 @@ var Slack = function() {
       UrlFetchApp.fetch( webhook, options );
     }
   };
+}
+
+function test() {
+  Slack().send();
 }
