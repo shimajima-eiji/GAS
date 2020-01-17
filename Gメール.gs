@@ -26,7 +26,7 @@ var sendMail = function ( target, messageObject, parmalink )
 
   const options = {
     'method': 'post',
-    'payload': JSON.Stringify( payload ),
+    'payload': JSON.stringify( payload ),
   };
   UrlFetchApp.fetch( target.webhook, options );
 
