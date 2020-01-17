@@ -6,7 +6,7 @@
 var Slack = function() {
   return {
     send: function(dateStr, titleStr, valueStr, webhook) {
-      if(!dateStr || !titleStr || !valueStr || !channel || !webhook) return error('notfound', 'Slack.send');
+      if(!dateStr || !titleStr || !valueStr || !webhook) return error('notfound', 'Slack.send');
 
       const payload = {
         "username": dateStr,
