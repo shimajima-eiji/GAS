@@ -1,0 +1,18 @@
+# 使用ライブラリ
+[オレオレライブラリ：snippets](https://script.google.com/macros/library/versions/d/1kU5cAgcFYhG4CnycO5XZ9f_gXgujFNYN5X4sJasfsDFtOWFVkoXTt88I)
+
+プロジェクトのプロパティに
+- SlackのIncomming Wehhook-URL
+- 転送ルール分の
+  - Gmailのラベル
+  - Slackの送信先（@ユーザー or #チャンネル）
+
+を格納する。プロパティ名はmainに渡せれば何でも良い。
+
+# Note
+## 転送するメールについて
+トリガー関数「Gmail2Slack」でslackにメールを転送するルールを設定。<br>
+メールの条件はgmail側で管理する。slackでやるととてもつらい。
+
+# TODO
+1: シートに追記する。現状は放置するとトリガーに従いメールが再送されるので、シートを手修正。
