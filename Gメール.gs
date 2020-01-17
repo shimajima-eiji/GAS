@@ -7,27 +7,9 @@ var sendMail = function ( target, messageObject, parmalink )
   Logger.log( messageObject.getPlainBody() );
   Logger.log( parmalink );
 
-  const payload = {
-    "username": messageObject.getDate(),
-    "attachments": [
-      {
-        "color": "#36a64f",
-        "title": messageObject.getSubject(),
-        "fields": [
-          {
-            "value": '\n' + messageObject.getPlainBody(),
-            "short": false
-          }
-        ],
-      }
-    ],
-    "channel": target.to,
-  };
-
-  const options = {
-    'method': 'post',
-    'payload': JSON.stringify( payload ),
-  };
-  UrlFetchApp.fetch( target.webhook, options );
-
+  Slack.send(messageObject.getDate(),
+             messageObject.getSubject(),
+             messageObject.getPlainBody(),
+             target.to,
+             target.webhook);
 };
