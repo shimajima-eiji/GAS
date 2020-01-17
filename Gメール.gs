@@ -1,18 +1,14 @@
-var Gmail = function() {
+var Gmail = function ()
+{
   return {
-    toSlack: function( target, messageObject, parmalink ) {
-      if(!target || !messageObject || !parmalink) return error('notfound', 'Gmail.send');
-      if(!target.to || !target.webhook) return error('notfound', 'Gmail.send');
-      Logger.log( messageObject.getDate() );
-      Logger.log( messageObject.getSubject() );
-      Logger.log( messageObject.getPlainBody() );
-      Logger.log( parmalink );
-      
-      Slack().send(messageObject.getDate(),
-                 messageObject.getSubject(),
-                 messageObject.getPlainBody(),
-                 target.to,
-                 target.webhook);
+    toSlack: function ( webhook, messageObject, parmalink )
+    {
+      if ( !webhook || !messageObject || !parmalink ) return error( 'notfound', 'Gmail.send' );
+
+      Slack().send( messageObject.getDate(),
+        messageObject.getSubject() + '： ' + parmalink,
+        messageObject.getPlainBody(),
+        webhook );
     }
   }
 };
