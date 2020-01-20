@@ -35,7 +35,3 @@ var Logging = function(target, key, lang) {
       ? message[target][ini.lang][key]
       : error(message[target][ini.lang].illegal, key);
 }
-
-function _test() {
-  debug(Logging('gmail', 'iferree'));
-}

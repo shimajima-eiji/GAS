@@ -27,7 +27,3 @@ var asc = function ( array, target )
   } );
   return array;
 }
-
-function _test() {
-  Logger.log(getProperties('_latest'));
-}
