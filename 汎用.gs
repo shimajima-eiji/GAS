@@ -4,7 +4,7 @@
  *
  *
  */
-function getProperties ( target )
+var getProperties = function ( target )
 {
   const properties = PropertiesService.getScriptProperties().getProperties();
   if ( target === undefined ) return properties;
@@ -17,7 +17,7 @@ function getProperties ( target )
   return result;
 }
 
-function asc ( array, target )
+var asc = function ( array, target )
 {
   array.sort( function ( a, b )
   {
@@ -26,4 +26,8 @@ function asc ( array, target )
     return 0;
   } );
   return array;
+}
+
+function _test() {
+  Logger.log(getProperties('_latest'));
 }

@@ -2,37 +2,41 @@
  * 備考：
  * フリープランでAppを使う場合、上限が少ないため同様の機能をこちらに実装したほうが良い。
  * https://○○○.slack.com/apps/manage 
+ *
+ * incommingは圧縮できるが、チャンネル名を変えた時の手間が死ねるのでやらない。
+ * もし上限を迎えたら考えよう。
  */
-var Slack = function() {
+var Slack = function(debug) {
+  
   return {
-    send: function(dateStr, titleStr, valueStr, webhook) {
-      if(!dateStr || !titleStr || !valueStr || !webhook) return error('notfound', 'Slack.send');
+    send: function(value, webhook, username, title) {
+      if(!value || !webhook) return error(Logging('slack', 'notfound'), 'Slack.send{value: ' + value + ' / webhook: ' + webhook);
 
       const payload = {
-        "username": dateStr,
         "attachments": [
           {
             "color": "#36a64f",
-            "title": titleStr,
             "fields": [
               {
-                "value": '\n' + valueStr,
+                "value": value,
                 "short": false
               }
             ],
           }
         ]
       };
+      if(username) payload.username = username;
+      if(title) payload.attachments.title = title;
       
       const options = {
         'method': 'post',
         'payload': JSON.stringify( payload ),
       };
-      UrlFetchApp.fetch( webhook, options );
+      UrlFetchApp.fetch( (debug) ? getProperties('slack_webhook_debug').slack_webhook_debug : webhook, options );
     }
   };
 }
 
-function test() {
-  Slack().send();
+function _test() {
+  Slack().send('a', 'b', 'c', getProperties('slack_webhook_debug').slack_webhook_debug);
 }
