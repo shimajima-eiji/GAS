@@ -27,3 +27,9 @@ var asc = function ( array, target )
   } );
   return array;
 }
+
+var separator = function(sep, arr) {
+  return arr.reduce(function( prev, value, index ) {
+    return (index==0) ? value : prev + sep + value;
+  });
+}

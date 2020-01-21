@@ -4,6 +4,7 @@ var zeroPadding = function(num, digit) {
 }
 
 var setDate = function(day) {
+
   const setWeek = {
     0: 'sunday',
     1: 'monday',
@@ -36,9 +37,12 @@ var setDate = function(day) {
   };
   result.ym = '' + result.year + result.month;
   result.ymd = '' + result.ym + result.day;
+  result.ymd_format = separator('/', [result.year, result.month, result.second]);
+  result['ymd-format'] = separator('-', [result.year, result.month, result.second]);
   result.md = '' + result.month + result.day;
   result.hm = '' + result.hour + result.minute;
   result.hms = '' + result.hour + result.minute + result.second;
+  result.hms_format = separator(':', [result.year, result.month, result.second]);
   result.ymdhm = '' + result.ymd + result.hm;
   result.ymdhms = '' + result.ymd + result.hms;
   result.week = i18n().getWeek()[setWeek[result.weeknum]];
