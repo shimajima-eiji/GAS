@@ -39,3 +39,12 @@ Webエディターだけで使う前提で運用するのでプロジェクト�
 
 - [GASプロジェクト](https://script.google.com/d/1I3P9iK1Upnl2aw2-ja1ZCZab7vo9bQqQ80j2JzOgVew10l4he5SASxGT/edit)
 - [スプレッドシート](https://docs.google.com/spreadsheets/d/1CFDH_NVODe7xOcQFyjlPQZneITnZzk3k7ArSv6aPKGE/edit)
+
+## connpassの直近イベントをSlackに送る
+そのまんま。connpass2slackも同じ意味。結構便利なので開発の主軸になっている
+
+## GASとVueでサイト作り
+なんとかそれっぽい感じのサイトを作ってみる。スプレッドシートでサイトを書き換えられるのは個人的にアツい！
+
+- [API](http://bit.ly/nomuraya)
+
