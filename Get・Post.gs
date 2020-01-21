@@ -16,7 +16,3 @@ function doGet(e) {
   output.setContent(payload);
   return output;
 }
-
-function _test() {
-  Logger.log(doGet());
-}

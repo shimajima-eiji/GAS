@@ -5,10 +5,12 @@ var Gmail = function ()
     {
       if ( !webhook || !messageObject || !parmalink ) return error( 'notfound', 'Gmail.send' );
 
-      Slack().send( messageObject.getDate(),
-        messageObject.getSubject() + '： ' + parmalink,
+      Slack().send(
         messageObject.getPlainBody(),
-        webhook );
+        webhook,
+        messageObject.getDate(),
+        messageObject.getSubject() + '： ' + parmalink
+      );
     }
   }
 };
