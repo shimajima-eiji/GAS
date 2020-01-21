@@ -9,10 +9,10 @@
       <h2>{{ tocTitle }}</h2>
       <p>{{ tocDescription }}</p>
       <ol>
-        <li>{{ title1 }}</li>
-        <li>{{ title2 }}</li>
-        <li>{{ title3 }}</li>
-        <li>{{ title4 }}</li>
+        <li><a :href="url1">{{ title1 }}</a></li>
+        <li><a :href="url2">{{ title2 }}</a></li>
+        <li><a :href="url3">{{ title3 }}</a></li>
+        <li><a :href="url4">{{ title4 }}</a></li>
       </ol>
     </div>
     <?!= HtmlService.createHtmlOutputFromFile('js').getContent(); ?>
