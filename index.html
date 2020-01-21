@@ -6,7 +6,14 @@
   </head>
   <body>
     <div id="app">
-      {{ message }}
+      <h2>{{ tocTitle }}</h2>
+      <p>{{ tocDescription }}</p>
+      <ol>
+        <li>{{ title1 }}</li>
+        <li>{{ title2 }}</li>
+        <li>{{ title3 }}</li>
+        <li>{{ title4 }}</li>
+      </ol>
     </div>
     <?!= HtmlService.createHtmlOutputFromFile('js').getContent(); ?>
   </body>
