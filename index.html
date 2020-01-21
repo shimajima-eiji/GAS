@@ -6,8 +6,7 @@
   </head>
   <body>
     <div id="app">
-      <p>{{ message }}</p>
-      <button @click="changeMessage">テキスト変更！</button>
+      {{ message }}
     </div>
     <?!= HtmlService.createHtmlOutputFromFile('js').getContent(); ?>
   </body>
