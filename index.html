@@ -6,11 +6,7 @@
   </head>
   <body>
     <div id="app">
-      <h2>{{ tocTitle }}</h2>
-      {{ tocDescription }}
-      <ol>
-        <li v-for="list in lists"><a :href="list.url">{{ list.title }}</a></li>
-      </ol>
+      バインドしているスプレッドシート名は {{ ssName }} です。
     </div>
     <?!= HtmlService.createHtmlOutputFromFile('js').getContent(); ?>
   </body>

@@ -5,3 +5,7 @@ function doGet() {
     .addMetaTag('viewport', 'width=device-width, initial-scale=1')
   return htmlOutput;
 }
+ 
+function getSpreadsheetName(){
+  return SpreadsheetApp.getActiveSpreadsheet().getName();
+}

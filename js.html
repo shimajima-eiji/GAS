@@ -1,20 +1,13 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <script>
-new Vue({
-  el: '#app',
-  data: {
-    tocTitle: '連載目次：GASユーザーのためのVue.js＆Webアプリ作成入門',
-    tocDescription: 'Google Apps ScriptではHTML・CSSを使ってWebページを作成し公開することができます。このシリーズでは、その続きとしてはじめてクライアント側JavaScriptを動かすところからスタートし、人気急上昇中のフレームワークVue.jsを使ってWebアプリケーションを作成する方法をお伝えしていきます。',
-    lists: [
-      { title: 'GASのWebアプリケーションでクライアント側JavaScriptを使うための基礎知識',
-        url: 'https://tonari-it.com/gas-web-app-javascript/' },
-      { title: 'GASでクライアントJavaScriptを使用する超簡単なプログラム',
-        url: 'https://tonari-it.com/gas-button-event-javascript/' }, 
-      { title: 'GASとJavaScriptフレームワークVue.jsを使ってWebアプリを作成するための最初の一歩',
-        url: 'https://tonari-it.com/gas-web-app-vue-js/' },
-      { title: 'GASにVue.jsを導入する方法とその動作確認、そしてVue.jsの超基本を解説',
-        url: 'https://tonari-it.com/gas-web-app-vue-js-data-binding/'}
-    ]
-  }
-});
+google.script.run.withSuccessHandler(initializeVue).getSpreadsheetName();
+ 
+function initializeVue(ssName){
+  new Vue({
+    el: '#app',
+    data: {
+      ssName: ssName
+    }
+  });
+}
 </script>
