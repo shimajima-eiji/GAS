@@ -13,9 +13,16 @@ var setDate = function(day) {
     5: 'friday',
     6: 'saturday',
   }
-  
-  var object = new Date();
-  object.setDate(object.getDate() + (day || 0));
+
+  var object;
+  if(day === undefined) {
+    object = new Date();
+  } else if(typeof(day) === 'number') {
+    object = new Date();
+    object.setDate(object.getDate() + (day || 0));
+  } else {
+    object = new Date(day);
+  }
   const result = {
     base: object,
     year: object.getFullYear(),

@@ -36,7 +36,3 @@ var Slack = function(debug) {
     }
   };
 }
-
-function _test() {
-  Slack().send('a', 'b', 'c', getProperties('slack_incomming_debug').slack_incomming_debug);
-}
