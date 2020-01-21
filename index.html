@@ -7,12 +7,9 @@
   <body>
     <div id="app">
       <h2>{{ tocTitle }}</h2>
-      <p>{{ tocDescription }}</p>
+      {{ tocDescription }}
       <ol>
-        <li><a :href="url1">{{ title1 }}</a></li>
-        <li><a :href="url2">{{ title2 }}</a></li>
-        <li><a :href="url3">{{ title3 }}</a></li>
-        <li><a :href="url4">{{ title4 }}</a></li>
+        <li v-for="list in lists"><a :href="list.url">{{ list.title }}</a></li>
       </ol>
     </div>
     <?!= HtmlService.createHtmlOutputFromFile('js').getContent(); ?>
