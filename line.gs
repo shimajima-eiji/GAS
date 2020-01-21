@@ -7,5 +7,5 @@ var Line = function(message, token) {
     "payload": "message=" + message,
     "headers":{"Authorization" : "Bearer " + (token || properties.line_token)}
   };
-  UrlFetchApp.fetch(properties.line_webhook, op);
+  UrlFetchApp.fetch(properties.line_incomming, op);
 }

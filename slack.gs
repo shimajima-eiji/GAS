@@ -32,11 +32,11 @@ var Slack = function(debug) {
         'method': 'post',
         'payload': JSON.stringify( payload ),
       };
-      UrlFetchApp.fetch( (debug) ? getProperties('slack_webhook_debug').slack_webhook_debug : webhook, options );
+      UrlFetchApp.fetch( (debug) ? getProperties('slack_incomming_debug').slack_incomming_debug : webhook, options );
     }
   };
 }
 
 function _test() {
-  Slack().send('a', 'b', 'c', getProperties('slack_webhook_debug').slack_webhook_debug);
+  Slack().send('a', 'b', 'c', getProperties('slack_incomming_debug').slack_incomming_debug);
 }
