@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <base target="_top">
+    <meta charset="utf-8">
+    <?!= include('css'); ?>
+    <!-- vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  </head>
+
+  <body>
+    <div id="SS-table">
+      <table>
+        <tr>
+          <th v-for="item in header">{{ item }}</th>
+        </tr>
+        <tr v-for="row in rows">
+          <td v-for="item in row">{{ item }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <?!= include('js'); ?>
+  </body>
+
+</html>

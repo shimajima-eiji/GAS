@@ -1,0 +1,34 @@
+<script>
+  var vm = new Vue( {
+    el: "#SS-table",
+    data: {
+      tableArray: [ [] ]
+    },
+    computed: {
+      header: function ()
+      {
+        return this.tableArray[ 0 ];
+      },
+      rows: function ()
+      {
+        return this.tableArray.slice( 1 );
+      }
+    },
+    methods: {
+      initData: function ( ssData )
+      {
+        this.tableArray = ssData;
+      }
+    },
+    created: function ()
+    {
+      google.script.run
+        .withSuccessHandler( this.initData )
+        .withFailureHandler( function ( arg )
+        {
+          console.log( arg )
+          alert( "データの取得に失敗しました。" );
+        } ).getSheetData();
+    }
+  } );
+</script>
