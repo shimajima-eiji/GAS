@@ -12,7 +12,7 @@ function getSheetData(){
   var spreadSheetID = "1gjk5stEVeQxTC2ZJNI5znPSybMwhL0BoqtOxI5lskOA";
   var sheetName = "シート1";
   var res = SpreadsheetApp.openById(spreadSheetID)
-    .getSheetByName(sheetName).getDataRange().getValues();
+    .getSheetByName(sheetName).getDataRange().getDisplayValues();
 
   Logger.log(res);
   return res;
