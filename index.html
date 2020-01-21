@@ -5,7 +5,8 @@
     <?!= HtmlService.createHtmlOutputFromFile('css').getContent(); ?>
   </head>
   <body>
-    <!-- ここにbodyを記述していく -->
+    <p id="hello">Hello GAS!</p>
+    <button onclick="changeMessage()">テキスト変更！</button>
     <?!= HtmlService.createHtmlOutputFromFile('js').getContent(); ?>
   </body>
 </html>
