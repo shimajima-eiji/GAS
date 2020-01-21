@@ -5,8 +5,10 @@
     <?!= HtmlService.createHtmlOutputFromFile('css').getContent(); ?>
   </head>
   <body>
-    <p id="hello">Hello GAS!</p>
-    <button onclick="changeMessage()">テキスト変更！</button>
+    <div id="app">
+      <p>{{ message }}</p>
+      <button @click="changeMessage">テキスト変更！</button>
+    </div>
     <?!= HtmlService.createHtmlOutputFromFile('js').getContent(); ?>
   </body>
 </html>
