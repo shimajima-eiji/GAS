@@ -7,11 +7,16 @@ function doGet(e) {
     job: ["ソフトウェアエンジニア", "AIエンジニア", "ITシステム・オペレーションコンサルタント", "ソーシャルテックブロガー", "エンジニアリング講師", "xTuberメンター", "DevRelテックマーケター"],
     industry: ["Web", "通信", "医療", "流通", "ゲーム"],
     language: ["日本語", "英語"],
-    tech: ["Google App Script", "VueJS", "JQuery", "Python", "Golang", "Swift", "Ruby on Rails", "PHP", "Java"]
-  }
+    tech: ["Google App Script", "VueJS", "JQuery", "Python", "Golang", "Swift","Ruby on Rails", "PHP", "Java"]
+  };
   
+  const payload = JSON.stringify(data);  
   const output = ContentService.createTextOutput();
   output.setMimeType(ContentService.MimeType.JSON);
-  output.setContent(data);
+  output.setContent(payload);
   return output;
+}
+
+function _test() {
+  Logger.log(doGet());
 }
