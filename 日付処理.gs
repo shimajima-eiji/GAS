@@ -4,7 +4,7 @@ var zeroPadding = function(num, digit) {
 }
 
 var setDate = function(day) {
-
+  // TODO:   Moment.moment();
   const setWeek = {
     0: 'sunday',
     1: 'monday',
@@ -37,14 +37,22 @@ var setDate = function(day) {
   };
   result.ym = '' + result.year + result.month;
   result.ymd = '' + result.ym + result.day;
-  result.ymd_format = separator('/', [result.year, result.month, result.second]);
-  result['ymd-format'] = separator('-', [result.year, result.month, result.second]);
+  result.ymd_format = separator('/', [result.year, result.month, result.day]);
+  result.ymd_format_jp = separator(result.year + '年' + result.month + '月' + result.day + '日');
+  result['ymd-format'] = separator('-', [result.year, result.month, result.day]);
   result.md = '' + result.month + result.day;
+
   result.hm = '' + result.hour + result.minute;
-  result.hms = '' + result.hour + result.minute + result.second;
-  result.hms_format = separator(':', [result.year, result.month, result.second]);
+  result.hms = '' + result.hm + result.second;
+  result.hms_format = separator(':', [result.hour, result.minute, result.second]);
+  result.hms_format_jp = separator(result.hour + '時' + result.minute + '分' + result.second + '秒');
+  result.ms = '' + result.minute + result.second;
+
   result.ymdhm = '' + result.ymd + result.hm;
   result.ymdhms = '' + result.ymd + result.hms;
+  result.ymdhms_format = result.ymd_format + ' ' + result.hms_format;
+  result.ymdhms_format_jp = result.ymd_format_jp + ' ' + result.hms_format_jp;
+
   result.week = i18n().getWeek()[setWeek[result.weeknum]];
   result.unix = Math.floor( result.unixfull / 1000 );
   return result;
