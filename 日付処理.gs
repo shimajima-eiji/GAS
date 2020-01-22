@@ -3,8 +3,12 @@ var zeroPadding = function(num, digit) {
   return ('0' + num).slice(digit);
 }
 
+var DateUtil = function(day) {
+  return (day) ? Moment.moment() : Moment.moment(day);
+}
+
+// 将来的に廃止
 var setDate = function(day) {
-  // TODO:   Moment.moment();
   const setWeek = {
     0: 'sunday',
     1: 'monday',
