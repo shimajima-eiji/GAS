@@ -10,7 +10,7 @@ function Gmail2Slack ()
 var main = function ( target )
 {
   // 【TODO】 Gメールで処理すべき内容が含まれているので、切り離しを考える
-  if ( !target.from || !target.webhook ) return;
+  if ( !target.from ) return snippets.error('Gmail', target.from);
   const threads = GmailApp.getUserLabelByName( target.from ).getThreads();
 
   const gsObjects = snippets.SpreadSheet();
