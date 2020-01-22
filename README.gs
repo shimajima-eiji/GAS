@@ -15,4 +15,8 @@
 - 他のプロジェクトから呼ばれるものを想定しているので、var funcname = function()... のような書き方をしない
   - 他プロジェクトで参照した時に保管できなくなるため
   - 本プロジェクトで固有のプロパティはなるべく使わない
+
+# ライブラリについて
+- SlackApp: M3W5Ut3Q39AaIwLquryEPMwV62A3znfOO
+- Moment: MHMchiX6c1bwSqGM1PZiW_PxhMjh3Sh48
 */

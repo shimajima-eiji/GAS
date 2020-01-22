@@ -14,6 +14,11 @@ function debug(mes) {
   Slack().send(mes);
 }
 
+// webhookを入れる処理すべてに適用する。送信エラーによる情報紛失を防ぐ
+function catchWebhook(url) {
+  
+}
+
 // 本プロジェクト用のデバッガ
 var _debug = function(message) {
   message = addString('debug') + message;

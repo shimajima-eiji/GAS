@@ -36,3 +36,8 @@ var addString = function(target, string, closer) {
   }
   return string + target + closer;
 }
+
+var zeroPadding = function(num, digit) {
+  if(digit > -1) digit *= -1;
+  return ('0' + num).slice(digit);
+}

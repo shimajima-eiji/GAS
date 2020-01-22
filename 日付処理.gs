@@ -4,7 +4,10 @@ var zeroPadding = function(num, digit) {
 }
 
 var DateUtil = function(day) {
-  return (day) ? Moment.moment() : Moment.moment(day);
+  return(day) ? Moment.moment(day) : Moment.moment();
+}
+function _date_test(){
+  Logger.log(DateUtil('2020-02-05T18:00:00+09:00').format('YYYY/MM/DD HH:MM:SS'));
 }
 
 // 将来的に廃止

@@ -8,7 +8,6 @@
 */  
 var Logging = function(target, key, lang) {
   const ini = _Initialize();
-  Logger.log(ini.lang);
   // TODO: どうやってSpreadSheetで管理しようか
   const message = {
     gmail: {
