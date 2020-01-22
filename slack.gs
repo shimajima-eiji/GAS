@@ -10,7 +10,8 @@ var Slack = function(debug) {
   
   return {
     send: function(value, webhook, username, title) {
-      if(!value || !webhook) return error(Logging('slack', 'notfound'), 'Slack.send{value: ' + value + ' / webhook: ' + webhook);
+      if(!value) return error(Logging('slack', 'notfound'), 'Slack.send{value: ' + value);
+      if (debug || !webhook) webhook = _debug().api('Slack');
 
       const payload = {
         "attachments": [
@@ -32,7 +33,15 @@ var Slack = function(debug) {
         'method': 'post',
         'payload': JSON.stringify( payload ),
       };
-      UrlFetchApp.fetch( (debug) ? getProperties('slack_incomming_debug').slack_incomming_debug : webhook, options );
+      try {
+        UrlFetchApp.fetch( webhook, options );
+      } catch(e) {
+        error('slack', 'webhook: ' + webhook);
+      }
     }
   };
+}
+
+function _slack_test(){
+  Slack().send('test');
 }

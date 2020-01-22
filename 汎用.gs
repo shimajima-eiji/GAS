@@ -1,20 +1,13 @@
 /**
  * プロパティの命名ルール
  * （どこにある）_（何の？）_（名前）
+ * 名前は固有名詞であること
  *
- *
+ * 数が多くなりすぎて煩雑なのでSpreadSheetに管理を移行する
  */
-var getProperties = function ( target )
+var getProperties = function ()
 {
-  const properties = PropertiesService.getScriptProperties().getProperties();
-  if ( target === undefined ) return properties;
-
-  const result = {};
-  for ( key in properties )
-  {
-    if ( key.indexOf( target ) > -1 ) result[ key ] = properties[ key ];
-  }
-  return result;
+  return SpreadSheet(_Initialize().property.id).getSheet().dict;
 }
 
 var asc = function ( array, target )
@@ -32,4 +25,14 @@ var separator = function(sep, arr) {
   return arr.reduce(function( prev, value, index ) {
     return (index==0) ? value : prev + sep + value;
   });
+}
+
+var addString = function(target, string, closer) {
+  if(!string) {
+    string = '[';
+    closer = ']';
+  } else if(!closer) {
+    closer = string;
+  }
+  return string + target + closer;
 }

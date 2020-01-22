@@ -1,18 +1,20 @@
-var spreadSheet = function ( id )
+/**
+ * 潜在バグの温床になるのでSnippetsプロジェクトはシートとの連携はしないこと
+ */
+var SpreadSheet = function ( id )
 {
-  const obj = ( id === undefined )
-    ? SpreadsheetApp.getActive().getSheets()
-    : SpreadsheetApp.openById( id ).getSheets();
-  // return this.obj[0].getDataRange().getValues();
+  const book = ( id )
+    ? SpreadsheetApp.openById( id )
+    : SpreadsheetApp.getActive();
 
   return {
-    "book": obj,
-    "getSheet": function ( sheet, target )
+    "book": book.getSheets(),
+    "getSheet": function ( target )
     {
-      target = ( target === undefined ) ? 0 : target;
+      target = (target) ? book.getSheetByName(target) : book.getSheets()[0]
       const header = 0;
-      const array = obj[ target ].getDataRange().getValues();  // 二次配列で渡す
-      const table = {  // pythonでいうdictで渡したい
+      const array = target.getDataRange().getValues();
+      const table = {
         header: array[ header ],
         body: []
       };
@@ -23,9 +25,16 @@ var spreadSheet = function ( id )
         row++;
         return index === 0;
       } );
+      const dict = table.body.reduce(function(prev, object, index) {
+        if(index == 1) prev = {};
+        prev[object[0]] = object[1];
+        return prev;
+      });
+
       return {
-        "array": array,
-        "table": table,
+        array: array,
+        table: table,
+        dict: dict
       };
     },
   };

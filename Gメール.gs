@@ -1,16 +1,25 @@
-var Gmail = function ()
+var Gmail = function (debug)
 {
   return {
-    toSlack: function ( webhook, messageObject, parmalink )
+    toSlack: function ( messageObject, parmalink, webhook )
     {
-      if ( !webhook || !messageObject || !parmalink ) return error( 'notfound', 'Gmail.send' );
+      if ( !messageObject || !parmalink ) return error( 'notfound', 'Gmail.toSlack' );
 
       Slack().send(
         messageObject.getPlainBody(),
-        webhook,
+        webhook || _debug().api('Slack'),  // GmailのエラーだがSlackAPIを使う。
         messageObject.getDate(),
         messageObject.getSubject() + '： ' + parmalink
       );
     }
   }
 };
+
+function _gmail_test(){
+  var messageObject = {
+    getPlainBody: function() {return 'body'},
+    getDate: function() {return 'date'},
+    getSubject: function() {return 'subject'},
+  };
+  Gmail().toSlack(messageObject, 'https://google.com');
+}

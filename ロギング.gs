@@ -7,7 +7,9 @@
 * 対象はkeyにないものを追加することはできない
 */  
 var Logging = function(target, key, lang) {
-  const ini = Initialize();
+  const ini = _Initialize();
+  Logger.log(ini.lang);
+  // TODO: どうやってSpreadSheetで管理しようか
   const message = {
     gmail: {
       ja: {
