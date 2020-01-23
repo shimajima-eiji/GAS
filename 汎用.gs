@@ -41,3 +41,7 @@ var zeroPadding = function(num, digit) {
   if(digit > -1) digit *= -1;
   return ('0' + num).slice(digit);
 }
+
+var shourtUrl = function(url) {
+  return (typeof(url) == 'string') ? JSON.parse(UrlFetchApp.fetch( 'http://is.gd/create.php?format=simple&format=json&url=' + url)).shorturl : url;
+}
