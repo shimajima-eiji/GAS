@@ -46,9 +46,14 @@ var shortUrl = function(url) {
   return (typeof(url) == 'string') ? JSON.parse(UrlFetchApp.fetch( 'http://is.gd/create.php?format=simple&format=json&url=' + url)).shorturl : url;
 }
 
-var is = function(target) {
-  return {
-    num: function() {return typeof(target) === 'number'},
-    str: function() {return typeof(target) === 'string'},
-  }
+function is() {
+  return new isClass();
 }
+//HogeClassメソッド自体は補完させたくないので隠す
+(function(global){
+  function isClass() {
+    this.str = function(target) {return typeof(target) == 'string'};
+    this.num = function(target) {return typeof(target) == 'number'};
+  }
+  global.isClass = isClass;
+})(this);
