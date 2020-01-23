@@ -42,6 +42,13 @@ var zeroPadding = function(num, digit) {
   return ('0' + num).slice(digit);
 }
 
-var shourtUrl = function(url) {
+var shortUrl = function(url) {
   return (typeof(url) == 'string') ? JSON.parse(UrlFetchApp.fetch( 'http://is.gd/create.php?format=simple&format=json&url=' + url)).shorturl : url;
+}
+
+var is = function(target) {
+  return {
+    num: function() {return typeof(target) === 'number'},
+    str: function() {return typeof(target) === 'string'},
+  }
 }
