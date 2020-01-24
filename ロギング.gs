@@ -6,7 +6,7 @@
 * 構造は「メッセージリスト.言語.対象」とし、対象は必ずkeyを持つ。
 * 対象はkeyにないものを追加することはできない
 */  
-var Logging = function(target, key, lang) {
+var logging = function(target, key, lang) {
   const ini = _Initialize();
   // TODO: どうやってSpreadSheetで管理しようか
   const message = {
@@ -25,7 +25,6 @@ var Logging = function(target, key, lang) {
       }
     }
   };
-  
 
   if(!target in message) return debug('notfound');
   lang = (lang in message[target]) ? lang : ini.lang;

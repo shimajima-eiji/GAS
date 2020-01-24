@@ -10,7 +10,8 @@ var Slack = function(debug) {
   
   return {
     send: function(value, webhook, username, title) {
-      if(!value) return error(Logging('slack', 'notfound'), 'Slack.send{value: ' + value);
+      var result = false;
+      if(!value) return error(logging('slack', 'notfound'), 'Slack.send{value: ' + value);
       if (debug || !webhook) webhook = _debug().api('Slack');
 
       const payload = {
@@ -35,9 +36,11 @@ var Slack = function(debug) {
       };
       try {
         UrlFetchApp.fetch( webhook, options );
+        result = true;
       } catch(e) {
         error('slack', 'webhook: ' + webhook);
       }
+      return result;
     }
   };
 }

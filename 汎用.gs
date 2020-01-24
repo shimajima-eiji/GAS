@@ -5,10 +5,10 @@
  *
  * 数が多くなりすぎて煩雑なのでSpreadSheetに管理を移行する
  */
-var getProperties = function ()
+function getProperties()
 {
   return SpreadSheet(_Initialize().property.id).getSheet().dict;
-}
+};
 
 var asc = function ( array, target )
 {
@@ -43,17 +43,12 @@ var zeroPadding = function(num, digit) {
 }
 
 var shortUrl = function(url) {
-  return (typeof(url) == 'string') ? JSON.parse(UrlFetchApp.fetch( 'http://is.gd/create.php?format=simple&format=json&url=' + url)).shorturl : url;
+  return (Is.str(url)) ? JSON.parse(UrlFetchApp.fetch( 'http://is.gd/create.php?format=simple&format=json&url=' + url)).shorturl : url;
 }
 
-function is() {
-  return new isClass();
-}
-//HogeClassメソッド自体は補完させたくないので隠す
-(function(global){
-  function isClass() {
-    this.str = function(target) {return typeof(target) == 'string'};
-    this.num = function(target) {return typeof(target) == 'number'};
-  }
-  global.isClass = isClass;
-})(this);
+var is = function() {
+  return {
+    str: function(target) {return typeof(target) == 'string'},
+    num: function(target) {return typeof(target) == 'number'},
+  };
+};
