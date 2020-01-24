@@ -33,7 +33,7 @@ var _debug = function(message) {
       message += addString(funcName, '|');
       Logger.log(message);
 
-      var result = GetProperties();
+      var result = getProperties();
       switch(funcName){
         case 'Slack':
           result = result.slack_incomming_debug;
