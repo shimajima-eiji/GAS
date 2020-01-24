@@ -16,6 +16,10 @@ function tomorrow ()
   _run( 1 );
 }
 
+function week ()
+{
+  Connpass.getWeek();
+}
 /**
  * モジュール
  */
