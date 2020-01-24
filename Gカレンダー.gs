@@ -13,5 +13,5 @@ function getCalendar(day, id) {
     result.title = event.getTitle();
     result.location = event.getLocation();
   });
-  return (result === {}) ? undefined : result;
+  return (Object.keys(result).length) ? result : undefined;
 }
