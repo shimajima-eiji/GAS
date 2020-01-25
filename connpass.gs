@@ -23,7 +23,7 @@ function week ()
 /**
  * モジュール
  */
-var Connpass = function ()
+var Connpass = function (debug)
 {
   const property = {
     common: snippets.getProperties(),
@@ -62,7 +62,7 @@ var Connpass = function ()
 
   function _send ( value, webhook, title )
   {
-    snippets.Slack().send( value, webhook || property.common.slack_incomming_log, title || undefined );
+    snippets.Slack(debug).send( value, webhook || property.common.slack_incomming_log, title || 'NoTitle' );
   }
   /**
    * 実行部
@@ -72,7 +72,7 @@ var Connpass = function ()
     const day = snippets.DateUtil();
     if ( snippets.is().num( specify ) ) day.add( specify, 'd' );
     const events = _callApi( {
-      ymd: day.format( 'YYYYMMDD' ),
+      ymd: day.format( property.local.format_ym ),
       count: '100',
     } );
 
@@ -80,7 +80,9 @@ var Connpass = function ()
     const exclude_address = [ '中区', '大阪', '京都府', '沖縄', '名古屋', '福岡', '札幌', '岡山', '宮城', '島根', '鳥取' ];
     const title = '【' + day.format( property.local.format_md ) + '】 イベント配信分';
     var tmp;
+    var checker = false;
     var counter = 0;
+    const pointer = 10;
     events.forEach( function ( event )
     {
       // 住所がexclude_addressに含まれる場合は除外する
@@ -94,9 +96,9 @@ var Connpass = function ()
 
       tmp += _format( event );
       counter++;
-      if ( counter % 10 == 0 )
+      if ( counter % pointer == 0 )
       {
-        _send( tmp, property.common.slack_incomming_latest, title );
+        _send( tmp, property.common.slack_incomming_latest, title + (counter - (pointer - 1)) + '-' + counter);
         tmp = '';
       }
     } );
@@ -118,6 +120,7 @@ var Connpass = function ()
     const format = property.local.format_mdhm;
     var tmp;
     var counter = 0;
+    const pointer = 10;
     events.forEach( function ( event )
     {
       // 7日以外で19時以降のイベントを除外する
@@ -128,9 +131,9 @@ var Connpass = function ()
 
       tmp += _format( event, format );
       counter++;
-      if ( counter % 10 == 0 )
+      if ( counter % 10 == pointer )
       {
-        _send( tmp, property.common.slack_incomming_latest, title );
+        _send( tmp, property.common.slack_incomming_latest, title + (counter - (pointer - 1)) + '-' + counter);
         tmp = '';
       }
     } );
@@ -174,7 +177,7 @@ var Connpass = function ()
     }
     if ( message )
     {
-      if ( check() ) snippets.Line().send( property.local.title_line + message, property.common.line_bot_token );
+      if ( check() && !debug ) snippets.Line().send( property.local.title_line + message, property.common.line_bot_token );
       _send( message, property.common.slack_incomming_log, property.local.title_slack );
     }
   }
