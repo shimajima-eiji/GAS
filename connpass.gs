@@ -23,7 +23,7 @@ function week ()
 /**
  * モジュール
  */
-var Connpass = function (debug)
+var Connpass = function ()
 {
   const property = {
     common: snippets.getProperties(),
@@ -62,7 +62,7 @@ var Connpass = function (debug)
 
   function _send ( value, webhook, title )
   {
-    snippets.Slack(debug).send( value, webhook || property.common.slack_incomming_log, title || 'NoTitle' );
+    snippets.Slack().send( value, webhook || property.common.slack_incomming_log, title || undefined );
   }
   /**
    * 実行部
@@ -72,7 +72,7 @@ var Connpass = function (debug)
     const day = snippets.DateUtil();
     if ( snippets.is().num( specify ) ) day.add( specify, 'd' );
     const events = _callApi( {
-      ymd: day.format( property.local.format_ym ),
+      ymd: day.format( 'YYYYMMDD' ),
       count: '100',
     } );
 
@@ -80,9 +80,7 @@ var Connpass = function (debug)
     const exclude_address = [ '中区', '大阪', '京都府', '沖縄', '名古屋', '福岡', '札幌', '岡山', '宮城', '島根', '鳥取' ];
     const title = '【' + day.format( property.local.format_md ) + '】 イベント配信分';
     var tmp;
-    var checker = false;
     var counter = 0;
-    const pointer = 10;
     events.forEach( function ( event )
     {
       // 住所がexclude_addressに含まれる場合は除外する
@@ -96,9 +94,9 @@ var Connpass = function (debug)
 
       tmp += _format( event );
       counter++;
-      if ( counter % pointer == 0 )
+      if ( counter % 10 == 0 )
       {
-        _send( tmp, property.common.slack_incomming_latest, title + (counter - (pointer - 1)) + '-' + counter);
+        _send( tmp, property.common.slack_incomming_latest, title );
         tmp = '';
       }
     } );
@@ -108,32 +106,32 @@ var Connpass = function (debug)
   function getWeek ()
   {
     const day = snippets.DateUtil();
-    const week = day.add( 7, 'd' )
+    const week = 7;
+    const weekobj = day.add( week, 'd' )
     const events = _callApi( {
       keyword: property.local.location,
-      ym: day.format( property.local.format_ym ) + ',' + week.format( property.local.format_ym ),
+      ym: day.format( property.local.format_ym ) + ',' + weekobj.format( property.local.format_ym ),
       count: '100',
     } );
 
     // TODO: おおよそ共通処理なので抜き出したい。forEach内のAPIでは制御できない除外条件をどうにか渡せれば可能
-    const title = '【' + week.format( property.local.format_md ) + '】 までの近辺の勉強会';
+    const title = '【' + weekobj.format( property.local.format_md ) + '】 までの近辺の勉強会';
     const format = property.local.format_mdhm;
     var tmp;
     var counter = 0;
-    const pointer = 10;
     events.forEach( function ( event )
     {
       // 7日以外で19時以降のイベントを除外する
       var target_day = snippets.DateUtil( event.started_at );
-      var diff = target_day.diff( day );
+      var diff = target_day.diff( day, 'd' );
       if ( 1900 < target_day.format( property.local.format_hm ) ) return;
-      if ( diff < 0 && week.day < diff ) return;
+      if ( diff < 0 || week < diff ) return;
 
       tmp += _format( event, format );
       counter++;
-      if ( counter % 10 == pointer )
+      if ( counter % 10 == 0 )
       {
-        _send( tmp, property.common.slack_incomming_latest, title + (counter - (pointer - 1)) + '-' + counter);
+        _send( tmp, property.common.slack_incomming_latest, title );
         tmp = '';
       }
     } );
@@ -177,7 +175,7 @@ var Connpass = function (debug)
     }
     if ( message )
     {
-      if ( check() && !debug ) snippets.Line().send( property.local.title_line + message, property.common.line_bot_token );
+      if ( check() ) snippets.Line().send( property.local.title_line + message, property.common.line_bot_token );
       _send( message, property.common.slack_incomming_log, property.local.title_slack );
     }
   }
