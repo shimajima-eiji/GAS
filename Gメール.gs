@@ -24,7 +24,7 @@ var Gmail = function ( debug )
   }
   
   var filter = function() {
-    sheet = SpreadSheet(getProperties().spreadsheet_id_gmail).getSheet();
+    sheet = new SpreadSheet(getProperties().spreadsheet_id_gmail).getSheet();
 
     var result = [];
     for ( var i = threads.length - sheet.dict[label] - 1; i > -1; i-- )

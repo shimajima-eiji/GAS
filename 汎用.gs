@@ -7,7 +7,7 @@
  */
 function getProperties()
 {
-  return SpreadSheet(_Initialize().property.id).getSheet().dict;
+  return new SpreadSheet(_Initialize().property.id).getSheet().dict();
 };
 
 var asc = function ( array, target )
@@ -43,12 +43,13 @@ var zeroPadding = function(num, digit) {
 }
 
 var shortUrl = function(url) {
-  return (Is.str(url)) ? JSON.parse(UrlFetchApp.fetch( 'http://is.gd/create.php?format=simple&format=json&url=' + url)).shorturl : url;
+  return (is().str(url)) ? JSON.parse(UrlFetchApp.fetch( 'http://is.gd/create.php?format=simple&format=json&url=' + url)).shorturl : url;
 }
 
 var is = function() {
   return {
     str: function(target) {return typeof(target) == 'string'},
     num: function(target) {return typeof(target) == 'number'},
+    array: function(target) {return Array.isArray(target)},
   };
 };

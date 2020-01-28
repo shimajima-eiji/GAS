@@ -11,7 +11,7 @@ var error = function(exception, message) {
 // 他プロジェクト用のデバッガ
 function debug(mes) {
   Logger.log(mes);
-  Slack().send(mes);
+  Slack('debug').send(mes);
 }
 
 // webhookを入れる処理すべてに適用する。送信エラーによる情報紛失を防ぐ

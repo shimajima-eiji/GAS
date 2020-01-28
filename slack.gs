@@ -46,5 +46,5 @@ var Slack = function(debug) {
 }
 
 function _slack_test(){
-  Slack().send('test');
+  Slack('debug').send('test', getProperties.slack_incomming_latest, 'title');
 }
