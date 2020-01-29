@@ -27,7 +27,7 @@ var Connpass = function ()
 {
   const property = {
     common: snippets.getProperties(),
-    local: PropertiesService.getScriptProperties().getProperties(),
+    local: snippets.SpreadSheet().getSheet(PropertiesService.getScriptProperties().getProperties().property).dict(),
   };
 
   /**
@@ -145,10 +145,26 @@ var Connpass = function ()
     function _set ( day )
     {
       var calendar = snippets.getCalendar( day, id );
+      _insertFromCalendar(calendar.title, day)
       return ( calendar )
         ? ( check() ? ( ( specify ) ? '明日' : '今日' ) : calendar.day.format( property.local.format_md ) ) + 'の予定 ' + calendar.start + '～' + calendar.end + ' ' + calendar.title + '\n（'
         + calendar.location + '）\n\n'
         : '';
+    }
+    
+    function _insertFromCalendar(keyword, day) {
+      if(!(snippets.is().str(keyword) && snippets.is().num(day))) return;
+      
+      var day_events = _callApi( {
+        keyword: keyword,
+        ymd: snippets.DateUtil().add(day, 'd').format(property.local.format_ymd),
+        count: '100',
+      } );
+      var sheet = snippets.SpreadSheet().getSheet();
+      day_events.forEach(function(event) {
+        sheet.upsert([snippets.DateUtil(event.started_at).format(property.local.format_ymd), event.title, event.event_url]);
+      });
+      if(sheet.save) sheet.save();
     }
 
     /**
@@ -193,4 +209,9 @@ function _run ( target )
 
   Connpass.getEvents( target );
   Connpass.getNextEvent( target );
+}
+
+function test() {
+  Logger.log(Connpass.property)
+//  Logger.log(snippets.SpreadSheet().getSheet().array());
 }
