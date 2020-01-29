@@ -76,7 +76,6 @@ var Connpass = function ()
       count: '100',
     } );
 
-    // TODO: おおよそ共通処理なので抜き出したい。forEach内のAPIでは制御できない除外条件をどうにか渡せれば可能
     const exclude_address = [ '中区', '大阪', '京都府', '沖縄', '名古屋', '福岡', '札幌', '岡山', '宮城', '島根', '鳥取' ];
     const title = '【' + day.format( property.local.format_md ) + '】 イベント配信分';
     var tmp;
@@ -114,7 +113,6 @@ var Connpass = function ()
       count: '100',
     } );
 
-    // TODO: おおよそ共通処理なので抜き出したい。forEach内のAPIでは制御できない除外条件をどうにか渡せれば可能
     const title = '【' + weekobj.format( property.local.format_md ) + '】 までの近辺の勉強会';
     const format = property.local.format_mdhm;
     var tmp;
@@ -173,11 +171,10 @@ var Connpass = function ()
     {
       message += _set( i );
     }
-    if ( message )
-    {
-      if ( check() ) snippets.Line().send( property.local.title_line + message, property.common.line_bot_token );
-      _send( message, property.common.slack_incomming_log, property.local.title_slack );
-    }
+    if ( !message ) return;
+
+    if ( check() ) snippets.Line().send( property.local.title_line + message, property.common.line_bot_token );
+    _send( message, property.common.slack_incomming_log, property.local.title_slack );
   }
 
   /**
@@ -192,9 +189,8 @@ var Connpass = function ()
 
 function _run ( target )
 {
-  if ( snippets.is().num( target ) )
-  {
-    Connpass.getEvents( target );
-    Connpass.getNextEvent( target );
-  }
+  if ( !snippets.is().num( target ) ) return;
+
+  Connpass.getEvents( target );
+  Connpass.getNextEvent( target );
 }
