@@ -1,28 +1,38 @@
 var Gmail = function ( debug )
 {
-  var threads = undefined;
-  var target = undefined;
-  var sheet = undefined;
-  var update = undefined;
-
   /**
    * 関数部
    */
-  var search = function ( label )
+  var _target = undefined;
+  var _mailObjects = [];
+  this.mailObjects = function(mailObjects) {
+    var result = _mailObjects;
+    if(mailObjects) {
+      _mailObjects = mailObjects;
+      result = this;
+    }
+    return result;
+  }
+  this.labelSearch = function( label )
   {
     if ( !is().str(label) ) return snippets.error( 'Gmail', label )
     
-    target = label;
-    threads = GmailApp.getUserLabelByName( target ).getThreads();
-    var result = [];
-    threads.forEach(function (object) {
+    Logger.log("デバッグ")
+
+    /*
+    _target = label;
+    GmailApp.getUserLabelByName( label ).getThreads().forEach(function (object) {
       object.getMessages().forEach(function (messageObject){
-        result.push(messageObject);
+        _mailObjects.push(messageObject);
       });
     });
-    return result;
+    */
+    return this;
   }
   
+  /**
+   * 転送したメールをスプレッドシートで管理しているため、
+   */
   var filter = function() {
     sheet = new SpreadSheet(getProperties().spreadsheet_id_gmail).getSheet();
 
@@ -48,6 +58,9 @@ var Gmail = function ( debug )
 //    sheet.update(label, [label, count]);
 //    sheet.save();
   }
+  
+  return this;
+  /*
   return {
     search: search,
     filter: filter,    
@@ -62,12 +75,16 @@ var Gmail = function ( debug )
       );
     }
   }
-}('debug');
+  */
+};
 
 function _gmail_test ()
 {
-  Gmail.search( getProperties().gmail_label_connpass ).forEach(function (mo) {
-    Logger.log(mo.getDate() + mo.getSubject());
-  });
+  Logger.log(getProperties().gmail_label_connpass);
+//  Logger.log(new Gmail().labelSearch(getProperties().gmail_label_connpass));
+//  .Gmail().toSlack( PROPERTIES.gmail_label_connpass, PROPERTIES.slack_incomming_connpass )
+//  Gmail.search( getProperties().gmail_label_connpass ).forEach(function (mo) {
+//    Logger.log(mo.getDate() + mo.getSubject());
+//  });
   //, getProperties().slack_incomming_connpass
 }

@@ -7,7 +7,9 @@
  */
 function getProperties()
 {
-  return new SpreadSheet(_Initialize().property.id).getSheet().dict();
+  const sheet = new SpreadSheet(_Initialize().property.id);
+  sheet.getSheet();
+  return sheet.dict();
 };
 
 var asc = function ( array, target )
