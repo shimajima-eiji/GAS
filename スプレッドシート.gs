@@ -138,11 +138,12 @@ var SpreadSheet = function ( id )
     return result;
   }
 
-  return this;
+  Logger.log(this)
+  return '外部呼び出し';
 }
 
 function _spreadsheet_test() {
-  const s = new SpreadSheet(getProperties().spreadsheet_id_connpass);
+  const s = SpreadSheet(getProperties().spreadsheet_id_connpass);
   s.getSheet();
   s.upsert([true, 'テスト', '日付']);
   Logger.log(s.json())
