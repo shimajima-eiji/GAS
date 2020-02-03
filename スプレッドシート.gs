@@ -135,8 +135,6 @@ var SpreadSheet = function ( id )
     }
     return result;
   }
-
-  Logger.log(this)
   return this;
 }
 
