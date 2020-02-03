@@ -3,8 +3,6 @@
  */
 var SpreadSheet = function ( id )
 {
-  if(!is().str(id)) return undefined;
-
   /**
    * シートの内容を取得する
    * 更新のたびにAPIを叩きまくるのを回避するため、一度だけ呼ばれるようにする。
@@ -139,13 +137,13 @@ var SpreadSheet = function ( id )
   }
 
   Logger.log(this)
-  return '外部呼び出し';
+  return this;
 }
 
 function _spreadsheet_test() {
   const s = SpreadSheet(getProperties().spreadsheet_id_connpass);
   s.getSheet();
   s.upsert([true, 'テスト', '日付']);
-  Logger.log(s.json())
+  Logger.log(s.json());
 //  s.save();
 }
