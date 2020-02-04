@@ -5,12 +5,28 @@
  *
  * 数が多くなりすぎて煩雑なのでSpreadSheetに管理を移行する
  */
-function getProperties()
+var PROPERTIES = undefined;
+function getProperties(label)
 {
-  const sheet = new SpreadSheet(_Initialize().property.id);
-  sheet.getSheet();
-  return sheet.dict();
+  if(!PROPERTIES) {
+    const sheet = new SpreadSheet(_Initialize().property.id);
+    sheet.getSheet();
+    PROPERTIES = sheet.dict();
+  }
+  
+  return (is().str(label)) ? searchObject(PROPERTIES, label) : PROPERTIES;
 };
+
+function searchObject(obj, str) {
+  const keys = Object.keys(obj).filter(function(key, index){
+    return (key.indexOf(str) > -1)
+  });
+  const result = {};
+  keys.forEach(function (key){
+    result[key] = obj[key];
+  });
+  return result;
+}
 
 var asc = function ( array, target )
 {
@@ -45,13 +61,25 @@ var zeroPadding = function(num, digit) {
 }
 
 var shortUrl = function(url) {
-  return (is().str(url)) ? JSON.parse(UrlFetchApp.fetch( 'http://is.gd/create.php?format=simple&format=json&url=' + url)).shorturl : url;
+  var result = undefined;
+  try {
+    result = (is().str(url)) ? new Fetch().run( getProperties().api_service_shorturl + url).shorturl : url;
+  } catch(e) {
+    error('shortUrl', url);
+  }
+  return result;
 }
 
-var is = function() {
+var is = function(object) {
+  /**
+   * if比較が面倒くさいものを集約
+   * valueを見るものはここでは扱わない
+   */
   return {
     str: function(target) {return typeof(target) == 'string'},
     num: function(target) {return typeof(target) == 'number'},
     array: function(target) {return Array.isArray(target)},
+    key: function(target) {return (object) ? (object[target] === undefined) ? false : true : false},
+    has: function(target) {return (target) ? Object.keys(target).length > 0 : false},
   };
 };
