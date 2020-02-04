@@ -1,5 +1,5 @@
-function getCalendar(day, id) {
-  if(!is().num(day)) return error('Gcalendar', day);
+var getCalendar = function(day, id) {
+  if(!is().num(day) && !is().str(id)) return error('Gcalendar', day + id);
 
   function _format(date, format) {
     return DateUtil(date).format(is().str(format) ? format :'HH:MM');
@@ -14,4 +14,8 @@ function getCalendar(day, id) {
     result.location = event.getLocation();
   });
   return (Object.keys(result).length) ? result : undefined;
+}
+
+function _test_getCalendar(){
+  Logger.log(getCalendar(0, getProperties().gcalendar_id_connpass));
 }

@@ -8,7 +8,18 @@ var SpreadSheet = function ( id )
    * 更新のたびにAPIを叩きまくるのを回避するため、一度だけ呼ばれるようにする。
    */
   this.getSheet = function(sheet) {
-    _target = (is().str(sheet)) ? _book.getSheetByName(sheet) : _book.getSheets()[0];
+    _target = undefined;
+    try {
+      if(is().str(sheet)) {
+        _target = _book.getSheetByName(sheet);
+        this.sheet = sheet;
+      } else {
+        _target = _book.getSheets()[0];
+      }
+    } catch(e) {
+      error('SpreadSheet', 'getSheet');
+    }
+
     _array = _target.getDataRange().getValues();
     this.upsert = _upsert;
     return _updateSheet('getSheet');
@@ -92,7 +103,7 @@ var SpreadSheet = function ( id )
     _target.getRange(1, 1, _array.length, _array[0].length).setValues(_array);  // 行, 列の順
   }
   
-  _book = ( id )
+  _book = is().str(id)
   ? SpreadsheetApp.openById( id )
   : SpreadsheetApp.getActive();
   

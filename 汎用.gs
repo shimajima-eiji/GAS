@@ -21,7 +21,7 @@ function searchObject(obj, str) {
   const keys = Object.keys(obj).filter(function(key, index){
     return (key.indexOf(str) > -1)
   });
-  const result = {};
+  var result = {};
   keys.forEach(function (key){
     result[key] = obj[key];
   });
