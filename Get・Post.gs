@@ -1,9 +1,18 @@
-function doGet() {
-  property = _Initialize().property
-  const data = SpreadSheet(property.id).getSheet(property.profile).dict;  
-  const payload = JSON.stringify(data);  
+function doGet(e) {
+  const property = _Initialize().property
+  const s = SpreadSheet(property.id)
+  s.getSheet(property.profile)
+  return forDoGet(s.dict());
+}
+
+var forDoGet = function(json) {
+  ContentService.createTextOutput()
   const output = ContentService.createTextOutput();
   output.setMimeType(ContentService.MimeType.JSON);
-  output.setContent(payload);
+  output.setContent((is().str(json)) ? JSON.stringify(json) : json);
   return output;
+}
+
+function _doGet_test() {
+  Logger.log(doGet());
 }
