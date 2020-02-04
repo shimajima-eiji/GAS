@@ -1,33 +1,35 @@
 /**
  * トリガー
  */
-function today ()
+function _today ()
 {
   _run( 0 );
 }
 
-function night ()
+function _night ()
 {
   Connpass.getNextEvent( 1 );
 }
 
-function tomorrow ()
+function _tomorrow ()
 {
   _run( 1 );
 }
 
-function week ()
+function _week ()
 {
   Connpass.getWeek();
 }
 /**
  * モジュール
  */
-var Connpass = function ()
+var _Connpass = function ()
 {
+  const s = new snippets.SpreadSheet();
+  s.getSheet(PropertiesService.getScriptProperties().getProperties().property);
   const property = {
-    common: snippets.getProperties(),
-    local: snippets.SpreadSheet().getSheet(PropertiesService.getScriptProperties().getProperties().property).dict(),
+    local: s.dict(),
+    common: new snippets.getProperties(),  // #21
   };
 
   /**
@@ -44,7 +46,7 @@ var Connpass = function ()
       endpoint += pointer + key + '=' + param[ key ];
       pointer = '&';
     }
-
+    
     const events = JSON.parse( UrlFetchApp.fetch( endpoint ) ).events;
     snippets.asc( events, 'started_at' );
 
@@ -62,7 +64,7 @@ var Connpass = function ()
 
   function _send ( value, webhook, title )
   {
-    snippets.Slack().send( value, webhook || property.common.slack_incomming_log, title || undefined );
+    snippets.Slack('debug').send( value, webhook || property.common.slack_incomming_log, title || undefined );
   }
   /**
    * 実行部
@@ -78,7 +80,7 @@ var Connpass = function ()
 
     const exclude_address = [ '中区', '大阪', '京都府', '沖縄', '名古屋', '福岡', '札幌', '岡山', '宮城', '島根', '鳥取' ];
     const title = '【' + day.format( property.local.format_md ) + '】 イベント配信分';
-    var tmp;
+    var tmp = '';
     var counter = 0;
     events.forEach( function ( event )
     {
@@ -144,8 +146,8 @@ var Connpass = function ()
      */
     function _set ( day )
     {
-      var calendar = snippets.getCalendar( day, id );
-      _insertFromCalendar(calendar.title, day)
+      var calendar = snippets.getCalendar( day, property.common.gcalendar_id_connpass );
+      _insertFromCalendar(calendar.title, day);
       return ( calendar )
         ? ( check() ? ( ( specify ) ? '明日' : '今日' ) : calendar.day.format( property.local.format_md ) ) + 'の予定 ' + calendar.start + '～' + calendar.end + ' ' + calendar.title + '\n（'
         + calendar.location + '）\n\n'
@@ -157,10 +159,11 @@ var Connpass = function ()
       
       var day_events = _callApi( {
         keyword: keyword,
-        ymd: snippets.DateUtil().add(day, 'd').format(property.local.format_ymd),
+        ymd: specify_date.format(property.local.format_ymd),
         count: '100',
       } );
-      var sheet = snippets.SpreadSheet().getSheet();
+      const sheet = new snippets.SpreadSheet();
+      sheet.getSheet();
       day_events.forEach(function(event) {
         sheet.upsert([snippets.DateUtil(event.started_at).format(property.local.format_ymd), event.title, event.event_url]);
       });
@@ -178,6 +181,7 @@ var Connpass = function ()
     }
 
     const id = property.common.gcalendar_id_connpass;
+    const specify_date = snippets.DateUtil().add(specify, 'd')
     const week = 7;
     const start = ( check() ) ? specify : 0;
     const end = ( check() ) ? start + 1 : week;
@@ -189,8 +193,8 @@ var Connpass = function ()
     }
     if ( !message ) return;
 
-    if ( check() ) snippets.Line().send( property.local.title_line + message, property.common.line_bot_token );
-    _send( message, property.common.slack_incomming_log, property.local.title_slack );
+    if ( check() ) snippets.Line().send( specify_date.format(property.local.format_md) + message, property.common.line_bot_token );
+    _send( message, property.common.slack_incomming_log, specify_date.format(property.local.format_md) );
   }
 
   /**
@@ -207,11 +211,6 @@ function _run ( target )
 {
   if ( !snippets.is().num( target ) ) return;
 
-  Connpass.getEvents( target );
-  Connpass.getNextEvent( target );
-}
-
-function test() {
-  Logger.log(Connpass.property)
-//  Logger.log(snippets.SpreadSheet().getSheet().array());
+  _Connpass.getEvents( target );
+  _Connpass.getNextEvent( target );
 }
