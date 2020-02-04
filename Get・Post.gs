@@ -9,7 +9,7 @@ var forDoGet = function(json) {
   ContentService.createTextOutput()
   const output = ContentService.createTextOutput();
   output.setMimeType(ContentService.MimeType.JSON);
-  output.setContent((is().str(json)) ? JSON.stringify(json) : json);
+  output.setContent((is().str(json)) ? json : JSON.stringify(json));
   return output;
 }
 
