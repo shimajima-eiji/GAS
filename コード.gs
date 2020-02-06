@@ -2,8 +2,18 @@ function doPost(e) {
   const token = PropertiesService.getScriptProperties().getProperties().token;
   const api = snippets.ApiManager();
   const object = api.get.slack(e, token);
-  api.send.line(object.message);
+
+  var result = false;
+  try {
+    result = api.send.line(object.message);
+  } catch(e) {
+  }
   api.send.slack(object.message, snippets.getProperties().slack_incomming_log);
+
+  const s = snippets.SpreadSheet();
+  s.getSheet();
+  s.upsert([result, snippets.DateUtil().format('YYYY年MM月DD日'), object.message])
+  s.save();
 }
 
 function _doPost_test() {
