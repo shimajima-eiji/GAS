@@ -83,7 +83,7 @@ function _slack_test(){
   };
   return e;  // for ApiManager
 
-//  const object = Slack().get(e);
-//  Logger.log(object);
-//  Slack('debug').send(object.message, getProperties.slack_incomming_latest, object.title);
+  const object = Slack().get(e);
+  Logger.log(object);
+  Slack('debug').send(object.message, getProperties.slack_incomming_latest, object.title);
 }

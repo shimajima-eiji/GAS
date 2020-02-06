@@ -21,21 +21,23 @@ var ApiManager = function(debug) {
     return result;
   }
   
+  const _getsend = function(target) {
+    const result = {};
+    Object.keys(_functions).forEach(function(func) {
+      if(_functions[func][target] != undefined) {
+        result[func] = _functions[func][target];
+      };
+    });
+    return result;
+  };
   const _functions = {
     slack: Slack(_debug),
     gmail: Gmail(_debug),
     line: Line(_debug),
   };
 
-  this.get = function() {
-    const result = {};
-    Object.keys(_functions).forEach(function(func) {
-      if(_functions[func].get != undefined) {
-        result[func] = _functions[func].get;
-      };
-    });
-    return result;
-  }()
+  this.get = _getsend('get');
+  this.send = _getsend('send');
   return this;
 }
 
