@@ -81,8 +81,8 @@ function _slack_test(){
       trigger_word: 'googlebot:'
     }
   };
-  return e;  // for ApiManager
+//  return e;  // for ApiManager
 
-//  const object = Slack().get(e);
-//  Logger.log(Slack().send(object.message, getProperties().slack_incomming_debug, object.title));
+  const object = Slack().get(e, 'test');
+  Logger.log(Slack().send(object.message, getProperties().slack_incomming_debug, object.title));
 }

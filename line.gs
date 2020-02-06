@@ -1,6 +1,7 @@
 var Line = function(debug) {
   return {
     send: function(message, token) {
+      var result = false;
       if(!message) return error('Line', 'message: ' + message);
       
       const properties = getProperties();
@@ -11,9 +12,11 @@ var Line = function(debug) {
       };
       try{
         UrlFetchApp.fetch(properties.line_incomming_notify, op);
+        result = true;
       } catch(e) {
         error('Line', 'token: ' + token);
       }
+      return result;
     }
   }
 }
