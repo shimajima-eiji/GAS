@@ -11,7 +11,7 @@ var Slack = function(debug) {
   function _validation(e, token) {
     var result = false;
     try {
-      if (token != e.parameter.token) {
+      if (token == e.parameter.token) {
         result = true
       } else {
         error('Slack.get', '不正アクセスを検出');
@@ -28,8 +28,8 @@ var Slack = function(debug) {
     },
     send: function(value, webhook, username, title) {
       var result = false;
-      if(!value) return error(logging('slack', 'notfound'), 'Slack.send{value: ' + value);
-      if (debug || !webhook) webhook = _debug().api('Slack');
+      if(!value) return error('Slack.send', 'Slack.send{value: ' + value);
+      if (debug || !is().str(webhook)) webhook = _debug().api('Slack');
 
       const payload = {
         "attachments": [
@@ -83,7 +83,6 @@ function _slack_test(){
   };
   return e;  // for ApiManager
 
-  const object = Slack().get(e);
-  Logger.log(object);
-  Slack('debug').send(object.message, getProperties.slack_incomming_latest, object.title);
+//  const object = Slack().get(e);
+//  Logger.log(Slack().send(object.message, getProperties().slack_incomming_debug, object.title));
 }
