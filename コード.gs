@@ -2,8 +2,8 @@ function doPost(e) {
   const token = PropertiesService.getScriptProperties().getProperties().token;
   const api = snippets.ApiManager();
   const object = api.get.slack(e, token);
-  Logger.log(api.send.line(object.message));
-  Logger.log(api.send.slack(object.message, snippets.getProperties().slack_incomming_log));
+  api.send.line(object.message);
+  api.send.slack(object.message, snippets.getProperties().slack_incomming_debug);
 }
 
 function _doPost_test() {
