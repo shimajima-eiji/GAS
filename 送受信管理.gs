@@ -3,23 +3,36 @@
  * 受信についてはそれぞれのプロジェクトを立ててdoPostで受け取らせる。
  * なお、インターフェースに準拠させたい
  */
-function apiManager(body) {
-  const send = {
-    slack: Slack().send(),
-    gmail: Gmail().send(),
-    line: Line().send(),
-  };
-  
-  const required_keyName = ['body', 'webhook'];  // 必須キー
-  
-  /**
-   * バリデーション
-   */
-  var func = undefined;
-  for(key in send) {
-    if(key == target) func = send[key];
-  }
-  if(func = undefined) return;
+var ApiManager = function(debug) {
+  this.debug = debug || false;
+  const check = function(message, title, webhook, date) {
+    const result = {
+      message: is().str(message) ? message : '不正なメッセージです。',
+      title: is().str(title) ? title : undefined,
+      webhook: is().str(webhook) ? webhook : undefined,
+      date: date || DateUtil().format('YYYY/MM/DD HH:MM:SS'),
+    };
 
-  func(object);  
+    // 不正な文字列などが入っていないか、ここでvalidateする
+    if(!is().str(message)) {
+      error('ApiManager', message);
+      result.debug = true;
+    }
+    return result;
+  }
+  
+  return {
+    get: {
+      slack: Slack().get,
+    },
+    send: {
+      slack: Slack(this.debug).send,
+      gmail: Gmail(this.debug).send,
+      line: Line(this.debug).send,
+    },
+  };
+}
+
+function _ApiManager_test() {
+  Logger.log(ApiManager().get.slack);
 }

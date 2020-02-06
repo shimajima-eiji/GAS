@@ -9,6 +9,14 @@
 var Slack = function(debug) {
   
   return {
+    get: function(e, token, webhook, title) {
+      //slackのバリデーション
+      if(!(is().has(e) & is().str(token))) error('Slack.get', '不正なアクセス');
+      if(!is().has(e.parameter)) error('Slack.get', e);
+      if(token != e.parameter.token) error('Slack.get', 'トークンが不一致');  // Fix: 不正アクセスのログは取らない
+
+      return ApiManager.get(e.parameter.text, e.parameter.user_name);
+    },
     send: function(value, webhook, username, title) {
       var result = false;
       if(!value) return error(logging('slack', 'notfound'), 'Slack.send{value: ' + value);
@@ -46,5 +54,25 @@ var Slack = function(debug) {
 }
 
 function _slack_test(){
-  Slack('debug').send('test', getProperties.slack_incomming_latest, 'title');
+  const e = {
+    parameter: {
+      token: 'test',
+      team_id: 'T0001',
+      team_domain: '例',
+      
+      channel_id: 'test',
+      channel_name: 'テスト',
+      
+      timestamp: '1355517523.000005',
+      user_id: 'test',
+      user_name: 'スティーブ',
+      
+      text: 'googlebot: 身軽なツバメの対気速度はどのくらい？',
+      
+      trigger_word: 'googlebot:'
+    }
+  };
+
+  Logger.log(Slack().get(e));
+//  Slack('debug').send('test', getProperties.slack_incomming_latest, 'title');
 }

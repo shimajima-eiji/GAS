@@ -70,7 +70,7 @@ var SpreadSheet = function ( id )
     _updateTable();
     _updateDict();
     _updateJson();
-    return;
+    return this;
   }
   
   /**
@@ -100,7 +100,12 @@ var SpreadSheet = function ( id )
    */
   function save()
   {
-    _target.getRange(1, 1, _array.length, _array[0].length).setValues(_array);  // 行, 列の順
+    try {
+      _target.getRange(1, 1, _array.length, _array[0].length).setValues(_array);  // 行, 列の順
+    } catch(e) {
+      error('SpreadSheet', _array);
+    }
+    return this;
   }
   
   _book = is().str(id)
