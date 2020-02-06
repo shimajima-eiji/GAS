@@ -7,15 +7,24 @@
  * もし上限を迎えたら考えよう。
  */
 var Slack = function(debug) {
-  
+  //slackのバリデーション
+  function _validation(e, token) {
+    var result = false;
+    try {
+      if (token != e.parameter.token) {
+        result = true
+      } else {
+        error('Slack.get', '不正アクセスを検出');
+      }
+    } catch(e) {
+      error('Slack.get', e);
+    }
+    return result;
+  }
+
   return {
     get: function(e, token, webhook, title) {
-      //slackのバリデーション
-      if(!(is().has(e) & is().str(token))) error('Slack.get', '不正なアクセス');
-      if(!is().has(e.parameter)) error('Slack.get', e);
-      if(token != e.parameter.token) error('Slack.get', 'トークンが不一致');  // Fix: 不正アクセスのログは取らない
-
-      return ApiManager.get(e.parameter.text, e.parameter.user_name);
+      return _validation(e, token) ? ApiManager().format(e.parameter.text, e.parameter.user_name) : undefined;
     },
     send: function(value, webhook, username, title) {
       var result = false;
@@ -72,7 +81,9 @@ function _slack_test(){
       trigger_word: 'googlebot:'
     }
   };
+  return e;  // for ApiManager
 
-  Logger.log(Slack().get(e));
-//  Slack('debug').send('test', getProperties.slack_incomming_latest, 'title');
+//  const object = Slack().get(e);
+//  Logger.log(object);
+//  Slack('debug').send(object.message, getProperties.slack_incomming_latest, object.title);
 }

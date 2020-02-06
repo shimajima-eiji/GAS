@@ -4,8 +4,8 @@
  * なお、インターフェースに準拠させたい
  */
 var ApiManager = function(debug) {
-  this.debug = debug || false;
-  const check = function(message, title, webhook, date) {
+  const _debug = debug || false;
+  this.format = function(message, title, webhook, date) {
     const result = {
       message: is().str(message) ? message : '不正なメッセージです。',
       title: is().str(title) ? title : undefined,
@@ -16,23 +16,30 @@ var ApiManager = function(debug) {
     // 不正な文字列などが入っていないか、ここでvalidateする
     if(!is().str(message)) {
       error('ApiManager', message);
-      result.debug = true;
+      _debug = true;
     }
     return result;
   }
   
-  return {
-    get: {
-      slack: Slack().get,
-    },
-    send: {
-      slack: Slack(this.debug).send,
-      gmail: Gmail(this.debug).send,
-      line: Line(this.debug).send,
-    },
+  const _functions = {
+    slack: Slack(_debug),
+    gmail: Gmail(_debug),
+    line: Line(_debug),
   };
+
+  this.get = function() {
+    const result = {};
+    Object.keys(_functions).forEach(function(func) {
+      if(_functions[func].get != undefined) {
+        result[func] = _functions[func].get;
+      };
+    });
+    return result;
+  }()
+  return this;
 }
 
 function _ApiManager_test() {
-  Logger.log(ApiManager().get.slack);
+  const e = _slack_test();
+  Logger.log(ApiManager().get.slack(e));
 }
