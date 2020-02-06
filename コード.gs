@@ -3,7 +3,7 @@ function doPost(e) {
   const api = snippets.ApiManager();
   const object = api.get.slack(e, token);
   api.send.line(object.message);
-  api.send.slack(object.message, snippets.getProperties().slack_incomming_debug);
+  api.send.slack(object.message, snippets.getProperties().slack_incomming_log);
 }
 
 function _doPost_test() {
