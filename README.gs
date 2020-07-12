@@ -20,6 +20,13 @@
 - 呼び出し先で認証が必要。セキュリティがガバガバ
 
 # ライブラリについて
+## 使う場合
+- MVEZH1u68qJ_-_Jaml3k-vXb_gyPmhlNh
+
+## 使っているものについて
 - SlackApp: M3W5Ut3Q39AaIwLquryEPMwV62A3znfOO
 - Moment: MHMchiX6c1bwSqGM1PZiW_PxhMjh3Sh48
+
+## 運用について
+[github-changes](https://github.com/shimajima-eiji/Github_scout/wiki/【手引】更新履歴（CHANGELOG.md）)に準拠
 */

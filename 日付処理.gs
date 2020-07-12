@@ -4,10 +4,12 @@ var zeroPadding = function(num, digit) {
 }
 
 var DateUtil = function(day) {
+  Moment.moment.lang('ja', {weekdays: ["日","月","火","水","木","金","土"]});
   return(day) ? Moment.moment(day) : Moment.moment();
 }
 function _date_test(){
-  Logger.log(DateUtil('2020-02-05T18:00:00+09:00').format('YYYY/MM/DD HH:MM:SS'));
+  Logger.log(DateUtil('2020-02-05T18:00:00+09:00').format('YYYY/MM/DD HH:MM:SS dddd曜日 d'));
+  Logger.log(DateUtil(new Date()).format('YYYY/MM/DD HH:MM:SS dddd曜日 d'));
 }
 
 // 将来的に廃止

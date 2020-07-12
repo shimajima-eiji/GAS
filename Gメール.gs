@@ -81,7 +81,7 @@ var Gmail = function ( debug )
 function _gmail_test ()
 {
   Logger.log(getProperties().gmail_label_connpass);
-//  Logger.log(new Gmail().labelSearch(getProperties().gmail_label_connpass));
+  Logger.log(new Gmail().labelSearch(getProperties().gmail_label_connpass));
 //  .Gmail().toSlack( PROPERTIES.gmail_label_connpass, PROPERTIES.slack_incomming_connpass )
 //  Gmail.search( getProperties().gmail_label_connpass ).forEach(function (mo) {
 //    Logger.log(mo.getDate() + mo.getSubject());

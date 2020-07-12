@@ -83,3 +83,13 @@ var is = function(object) {
     has: function(target) {return (target) ? Object.keys(target).length > 0 : false},
   };
 };
+
+var range = function(num) {
+  var result = [];
+  if (is().num(num)) {
+    for(i=0; i<num; i++) {
+      result.push(i);
+    }
+  }
+  return result;
+}
