@@ -1,22 +1,19 @@
 # GAS
-GASで使ってるアレコレ。<br>
-Webエディターだけで使う前提で運用するのでプロジェクトをブランチで管理する。
+このリポジトリは、すべてのGASリポジトリのインフォメーションとして扱う
 
-# 運用ルール
-[branch](https://github.com/shimajima-eiji/GAS/branches)にはそれぞれ独立したプロジェクトを置く<br>
-英語で管理するとごちゃごちゃしそうなので、WIP版を英語にする。運用は日本語名のブランチとし、なんとなくそれっぽい英語のブランチがいわゆるdevelopブランチ。
+## 簡易リンク集
+- [ディスカッション](https://github.com/shimajima-eiji/GAS/discussions)
+  - 他のGASリポジトリでProjectとDiscussions、Wikiは作らない
+  - [GASリポジトリのプロジェクトを横断するプロジェクト](https://github.com/users/shimajima-eiji/projects/12)
+- Gdrive
+  - [Gdrive:本体](https://drive.google.com/drive/my-drive)
+  - [Gdrive:スクリプト](https://script.google.com/home)
+  - [Gdrive:スプレッドシート](https://docs.google.com/spreadsheets)
+- [GASテンプレートリポジトリ(V5)](https://github.com/shimajima-eiji/--GAS_v5_Template)
 
-なお、GASだけでリポジトリを作るとリポジトリ数がえらいことになったので、やむなく本運用としている。<br>
-ブランチプッシュだと草が生えないのと、何やったかわかりにくいのでいちいちissueに書く。後出しでも良い。
-
-## 補足：masterへのpushについて
-阻む手段が別レビュワー立ててLGTM打たなければならなかったので諦めた。
-
-# ブランチ解説
+# 廃止予定のブランチ解説
 現在稼働中のブランチ（プロジェクト）は以下の通り。<br>
 他ブランチのREADMEは更新されないようなので、気付いた時に手修正をするか。
-
-
 
 ## master
 なお、**masterブランチはWIPで使っている**ので、GASプロジェクトは各ブランチで管理する。<br>
@@ -48,4 +45,3 @@ Webエディターだけで使う前提で運用するのでプロジェクト�
 なんとかそれっぽい感じのサイトを作ってみる。スプレッドシートでサイトを書き換えられるのは個人的にアツい！
 
 - [API](http://bit.ly/nomuraya)
-
