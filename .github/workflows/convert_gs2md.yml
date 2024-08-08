@@ -8,18 +8,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: README.gsからREADME.mdを生成
+      - name: convert [README.gs] to [README.md]
         run: |
           cat README.gs | sed '1d' | sed '$d' | tee README.md
 
-      - name: 更新
+      - name: update
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Updated README.md from README.gs by Github Actions"
           skip_dirty_check: false
 
       - name: 何もしなかった場合にエラー終了させる（続きの処理を動かす条件になるため）
-        if: steps.auto-commit.outputs.changes_detected == 'false'
+        if: steps.update.outputs.changes_detected == 'false'
         run: |
           echo "No changes detected. Failing the workflow."
           exit 1
