@@ -1,0 +1,19 @@
+name: README.gsをREADME.mdに変換
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: README.gsからREADME.mdを生成
+        run: |
+          cat README.gs | sed '1d' | sed '$d' | tee README.md
+
+      - name: 更新
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: "Updated README.md from README.gs by Github Actions"
