@@ -16,3 +16,10 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Updated README.md from README.gs by Github Actions"
+          skip_dirty_check: false
+
+      - name: 何もしなかった場合にエラー終了させる（続きの処理を動かす条件になるため）
+        if: steps.auto-commit.outputs.changes_detected == 'false'
+        run: |
+          echo "No changes detected. Failing the workflow."
+          exit 1
