@@ -13,7 +13,8 @@ jobs:
           cat README.gs | sed '1d' | sed '$d' | tee README.md
 
       - name: 差分があれば更新
-        id: update
+        # 次の開発のため、一時的にコメントアウト
+        # id: update
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Updated README.md from README.gs by Github Actions"
