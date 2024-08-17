@@ -12,7 +12,7 @@ https://github.com/shimajima-eiji/GAS/discussions/33
 
 ## 使用ライブラリ
 | スクリプトID | 用途 | 備考 |
-| --------- | --- | --- |
+| ----------- | ---- | --- |
 
 ## デバッガ.gs
 `function debug_(関数名) { }`
